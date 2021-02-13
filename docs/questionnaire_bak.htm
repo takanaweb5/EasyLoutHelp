@@ -1,0 +1,525 @@
+﻿<HTML><HEAD>
+<title>「かんたんレイアウト」アンケート</title>
+<META http-equiv=Content-Type content="text/html; charset=utf-8"></HEAD>
+<BODY onload=FormOnload()>﻿
+<SCRIPT LANGUAGE="javascript" TYPE="text/javascript">
+<!--
+
+function FormOnload()
+{
+    var i,o;
+    
+    //お気に入り
+    o = document.questionnaire.Like;
+    for(i=0;i<o.length;i++)
+    {
+        o[i].onclick = function()
+						{
+						    document.questionnaire.LikeClear.checked = false;    
+						    document.questionnaire.LikeAll.checked   = false;    
+						}
+    }
+    //使わない
+    o = document.questionnaire.Unuse;
+    for(i=0;i<o.length;i++)
+    {
+        o[i].onclick = function()
+						{
+						    document.questionnaire.UnuseClear.checked = false;    
+						    document.questionnaire.UnuseAll.checked   = false;    
+						}
+    }
+}
+
+function Like_Click(f) 
+{
+    var i,o;
+    
+    o = document.questionnaire.Like;
+    for(i=0;i<o.length;i++)
+    {
+        o[i].checked = f;
+    }
+
+    if (f)
+    {
+        document.questionnaire.LikeClear.checked = false;    
+    } else 
+    {
+        document.questionnaire.LikeAll.checked   = false;    
+    }
+}
+
+function Unuse_Click(f) 
+{
+    var i,o;
+    
+    o = document.questionnaire.Unuse;
+    for(i=0;i<o.length;i++)
+    {
+        o[i].checked = f;
+    }
+
+    if (f)
+    {
+        document.questionnaire.UnuseClear.checked = false;    
+    } else 
+    {
+        document.questionnaire.UnuseAll.checked   = false;    
+    }
+}
+
+function InputCheck()
+{
+    var i,o;
+
+    if (document.questionnaire.UserName.value == "")
+    {
+        location.href = "#Top";
+        alert("お名前を入力してください\n匿名を希望される方は、適当なハンドル名を入力してください");
+        return false;
+    }
+
+    if (document.questionnaire.MailAddress.value == "guest")
+    {
+        document.questionnaire.MailAddress.value = "guest@takana.web5.jp";
+    } else
+    {
+		if (document.questionnaire.MailAddress.value == "")
+		{
+		    location.href = "#Top";
+		    alert("メールアドレスを入力してください\n匿名を希望される方は、「guest」と入力してください");
+		    return false;
+		}
+
+		//E-mail形式の正規表現パターン
+		//@が含まれていて、最後が .(ドット)でないなら正しいとする
+		var str = document.questionnaire.MailAddress.value; 
+		if (!str.match(/^[\w\-\+\.]+\@[\w\-\.]+[^.]$/i))
+		{
+		    location.href = "#Top";
+		    alert('メールアドレスの形式が不正です\n匿名を希望される方は、「guest」と入力してください');
+		    return false;
+		}
+    }
+
+    //どこで知ったか？
+    o = document.questionnaire.Knew;
+    for(i=0;i<o.length;i++)
+    {
+        if(o[i].checked)
+        {
+            break;    
+        }
+    }
+    if(i == o.length)
+    {
+        location.href = "#Knew";
+        alert("お知りになった方法を選択してください");
+        return false;
+    }
+
+    //お気に入りは？
+    document.questionnaire.Like2.value = GetFlg(document.questionnaire.Like);
+    if(parseInt(document.questionnaire.Like2.value,2) == 0)
+    {
+        if(document.questionnaire.LikeClear.checked == false)
+        {
+            location.href = "#Like";
+            alert("お気に入りの機能を選択してください");
+            return false;
+        }
+    }
+
+    //使わないのは？
+    document.questionnaire.Unuse2.value = GetFlg(document.questionnaire.Unuse);
+    if(parseInt(document.questionnaire.Unuse2.value,2) == 0)
+    {
+        if(document.questionnaire.UnuseClear.checked == false)
+        {
+            location.href = "#Unuse";
+            alert("使わない機能を選択してください");
+            return false;
+        }
+    }
+
+    window.open("","win1","toolbar=0,menubar=0,status=0,scrollbars=1,resizable=1,width=800,height=480");
+}
+
+function GetFlg(f)
+{
+    var i,result="";
+    
+    for(i=0;i<f.length-1;i++)
+    {
+        if(f[i].checked)
+        {
+            result += "1";
+        } else
+        {
+            result += "0";
+        }
+    }
+    return result;
+}
+
+//-->
+
+</SCRIPT>
+<style>
+<!--
+p
+    {margin:0mm;
+    margin-bottom:4pt;
+    text-align:justify;
+    text-justify:inter-ideograph;
+    font-size:small;
+    font-family:"ＭＳ ゴシック";}
+table
+    {margin:0mm;
+    margin-bottom:3pt;
+    text-align:justify;
+    text-justify:inter-ideograph;
+    font-size:x-small;
+    font-family:"ＭＳ Ｐゴシック";}
+-->
+</style>
+<a name=Top style="font-size:large">「かんたんレイアウト」について<br>以下のアンケートにご協力ください</a>
+
+<form name="questionnaire" target="win1" method=post action="php/questionnaire.php" onsubmit="return InputCheck()">
+<p>お名前を入力してください</p>
+<p style='MARGIN-LEFT:10pt'><INPUT TYPE="text" SIZE=21 maxlength=64 id=UserName name=UserName></p>
+<br>
+<p>メールアドレスを入力してください</p>
+<p style='MARGIN-LEFT:10pt'><INPUT TYPE="text" SIZE=41 maxlength=128 id=MailAddress name=MailAddress></p>
+
+<hr size=2 width="100%" align=center>
+<a name=Knew></a>
+
+<p>「かんたんレイアウト」をどこでお知りになりましたか？（１つだけ選択下さい）</p>
+<table border=1 cellspacing=3 cellpadding=0 style='PADDING-RIGHT:5pt; PADDING-LEFT:5pt; MARGIN-LEFT:10pt'>
+ <tr>
+  <td style='TEXT-ALIGN:center'>1</td>
+  <td><INPUT TYPE="radio" id=Knew name=Knew value=1></td>
+  <td>作者から聞いた</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>2</td>
+  <td><INPUT TYPE="radio" id=Knew name=Knew value=2></td>
+  <td>友人・知人から聞いた</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>3</td>
+  <td><INPUT TYPE="radio" id=Knew name=Knew value=3></td>
+  <td>作者のホームページで知った</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>4</td>
+  <td><INPUT TYPE="radio" id=Knew name=Knew value=4></td>
+  <td>ベクターで知った</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>5</td>
+  <td><INPUT TYPE="radio" id=Knew name=Knew value=5></td>
+  <td>「ベクター」以外の、ソフトウェア紹介サイトで知った</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>6</td>
+  <td><INPUT TYPE="radio" id=Knew name=Knew value=6></td>
+  <td>「3～5」以外の、インターネット上で知った(ブログ・メルマガ・個人サイトetc)</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>7</td>
+  <td><INPUT TYPE="radio" id=Knew name=Knew value=7></td>
+  <td>雑誌や書籍の出版物で知った</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>8</td>
+  <td><INPUT TYPE="radio" id=Knew name=Knew value=8></td>
+  <td>その他</td>
+ </tr>
+</table>
+
+<hr size=2 width="100%" align=center>
+<a name=Like></a>
+
+<p>お気に入りの機能はどれですか？（複数回答）</p>
+<table border=1 cellspacing=3 cellpadding=0 style='PADDING-RIGHT:5pt; PADDING-LEFT:5pt; MARGIN-LEFT:10pt'>
+ <tr>
+  <td style='TEXT-ALIGN:center'>1</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td rowspan=8 valign=top width=1>かんたんレイアウト</td>
+  <td style='TEXT-ALIGN:center'><img src="img/ReduceColsWidth.icp.bmp">&nbsp;<img src="img/ExpandColsWidth.bmp"></td>
+  <td>幅の変更</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>2</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td style='TEXT-ALIGN:center'><img src="img/MoveColBorderL.bmp">&nbsp;<img src="img/MoveColBorderR.bmp"></td>
+  <td>境界線の移動</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>3</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td style='TEXT-ALIGN:center'><img src="img/SplitColumn.bmp"></td>
+  <td>複数列に分割</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>4</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td style='TEXT-ALIGN:center'><img src="img/EraseColumn.bmp"></td>
+  <td>選択した列を消去</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>5</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td style='TEXT-ALIGN:center'><img src="img/DistributeColsWidth.bmp"></td>
+  <td>幅を揃える</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>6</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td style='TEXT-ALIGN:center'><img src="img/ShowWidth.bmp"></td>
+  <td>幅の一覧を表示</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>7</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td style='TEXT-ALIGN:center'><img src="img/MergeCellsAsColumn.bmp"></td>
+  <td>横方向に結合</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>8</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td style='TEXT-ALIGN:center'><img src="img/MoveCellBorderL.bmp">&nbsp;<img src="img/MoveCellBorderR.bmp"></td>
+  <td>列の境界を移動</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>9</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td rowspan=7 valign=top width=1>その２</td>
+  <td style='TEXT-ALIGN:center'><img src="img/FormulaBar.bmp"></td>
+  <td>数式バーの表示</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>10</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td style='TEXT-ALIGN:center'><img src="img/ShowGrid.bmp"></td>
+  <td>グリッドの表示</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>11</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td style='TEXT-ALIGN:center'><img src="img/FitShape.bmp"></td>
+  <td>グリッドに合せる</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>12</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td style='TEXT-ALIGN:center'><img src="img/MoveCell.bmp"></td>
+  <td>領域移動</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>13</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td style='TEXT-ALIGN:center'><img src="img/UnionCells.bmp"></td>
+  <td>値を保持してセル結合</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>14</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td style='TEXT-ALIGN:center'><img src="img/RowParseCell.bmp"></td>
+  <td>1行毎に分解して結合解除</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>15</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td style='TEXT-ALIGN:center'><img src="img/ParseCell.bmp"></td>
+  <td>セル結合の解除</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>16</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td rowspan=4 valign=top width=1>その他</td>
+  <td style='TEXT-ALIGN:center'><img src="img/ChangeTextboxesToCells.bmp"></td>
+  <td>テキストボックスをセルに変換</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>17</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td style='TEXT-ALIGN:center'><img src="img/ChangeCellsToTextboxes.bmp"></td>
+  <td>セルをテキストボックスに変換</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>18</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td style='TEXT-ALIGN:center'><img src="img/FitShapes.bmp"></td>
+  <td>図形をグリッドに合せる</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>19</td>
+  <td><INPUT TYPE="checkbox" id=Like></td>
+  <td style='TEXT-ALIGN:center'><img src="img/HideShapes.bmp"></td>
+  <td>図形非表示</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>20</td>
+  <td><INPUT TYPE="checkbox" id=LikeAll onclick="Like_Click(true)"></td>
+  <td colspan=3><b>すべて</b></td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>21</td>
+  <td><INPUT TYPE="checkbox" id=LikeClear onclick="Like_Click(false)"></td>
+  <td colspan=3><b>１つもなし</b></td>
+ </tr>
+</table>
+
+<hr size=2 width="100%" align=center>
+<a name=Unuse></a>
+
+<p>「使わない」または「使い方が分からない」機能はどれですか？（複数回答）</p>
+<table border=1 cellspacing=3 cellpadding=0 style='PADDING-RIGHT:5pt; PADDING-LEFT:5pt; MARGIN-LEFT:10pt'>
+ <tr>
+  <td style='TEXT-ALIGN:center'>1</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td rowspan=8 valign=top width=1>かんたんレイアウト</td>
+  <td style='TEXT-ALIGN:center'><img src="img/ReduceColsWidth.icp.bmp">&nbsp;<img src="img/ExpandColsWidth.bmp"></td>
+  <td>幅の変更</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>2</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td style='TEXT-ALIGN:center'><img src="img/MoveColBorderL.bmp">&nbsp;<img src="img/MoveColBorderR.bmp"></td>
+  <td>境界線の移動</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>3</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td style='TEXT-ALIGN:center'><img src="img/SplitColumn.bmp"></td>
+  <td>複数列に分割</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>4</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td style='TEXT-ALIGN:center'><img src="img/EraseColumn.bmp"></td>
+  <td>選択した列を消去</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>5</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td style='TEXT-ALIGN:center'><img src="img/DistributeColsWidth.bmp"></td>
+  <td>幅を揃える</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>6</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td style='TEXT-ALIGN:center'><img src="img/ShowWidth.bmp"></td>
+  <td>幅の一覧を表示</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>7</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td style='TEXT-ALIGN:center'><img src="img/MergeCellsAsColumn.bmp"></td>
+  <td>横方向に結合</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>8</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td style='TEXT-ALIGN:center'><img src="img/MoveCellBorderL.bmp">&nbsp;<img src="img/MoveCellBorderR.bmp"></td>
+  <td>列の境界を移動</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>9</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td rowspan=7 valign=top width=1>その２</td>
+  <td style='TEXT-ALIGN:center'><img src="img/FormulaBar.bmp"></td>
+  <td>数式バーの表示</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>10</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td style='TEXT-ALIGN:center'><img src="img/ShowGrid.bmp"></td>
+  <td>グリッドの表示</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>11</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td style='TEXT-ALIGN:center'><img src="img/FitShape.bmp"></td>
+  <td>グリッドに合せる</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>12</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td style='TEXT-ALIGN:center'><img src="img/MoveCell.bmp"></td>
+  <td>領域移動</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>13</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td style='TEXT-ALIGN:center'><img src="img/UnionCells.bmp"></td>
+  <td>値を保持してセル結合</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>14</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td style='TEXT-ALIGN:center'><img src="img/RowParseCell.bmp"></td>
+  <td>1行毎に分解して結合解除</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>15</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td style='TEXT-ALIGN:center'><img src="img/ParseCell.bmp"></td>
+  <td>セル結合の解除</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>16</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td rowspan=4 valign=top width=1>その他</td>
+  <td style='TEXT-ALIGN:center'><img src="img/ChangeTextboxesToCells.bmp"></td>
+  <td>テキストボックスをセルに変換</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>17</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td style='TEXT-ALIGN:center'><img src="img/ChangeCellsToTextboxes.bmp"></td>
+  <td>セルをテキストボックスに変換</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>18</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td style='TEXT-ALIGN:center'><img src="img/FitShapes.bmp"></td>
+  <td>図形をグリッドに合せる</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>19</td>
+  <td><INPUT TYPE="checkbox" id=Unuse></td>
+  <td style='TEXT-ALIGN:center'><img src="img/HideShapes.bmp"></td>
+  <td>図形非表示</td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>20</td>
+  <td><INPUT TYPE="checkbox" id=UnuseAll onclick="Unuse_Click(true)"></td>
+  <td colspan=3><b>すべて</b></td>
+ </tr>
+ <tr>
+  <td style='TEXT-ALIGN:center'>21</td>
+  <td><INPUT TYPE="checkbox" id=UnuseClear onclick="Unuse_Click(false)"></td>
+  <td colspan=3><b>１つもなし</b></td>
+ </tr>
+</table>
+</table>
+
+<hr size=2 width="100%" align=center>
+
+<p>ご意見・ご要望・感想・批判などをご記入ください。</p>
+<p style='MARGIN-LEFT:10pt'><TEXTAREA ROWS="8" COLS="60" id="Comment" name="Comment"></TEXTAREA></p><br>
+
+<p style='MARGIN-LEFT:60pt'>
+ <INPUT TYPE="submit" id=send VALUE="送　信">
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <INPUT TYPE="reset" VALUE="リセット">&nbsp;&nbsp;</p>
+ <INPUT TYPE="hidden" id=Like2 name=Like>
+ <INPUT TYPE="hidden" id=Unuse2 name=Unuse>
+
+</form> 
+</BODY></HTML>

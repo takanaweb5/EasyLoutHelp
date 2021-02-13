@@ -1,0 +1,28 @@
+/* Style Definitions */
+p
+	{margin:2px 0;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	font-size:100%;
+	font-family:"ＭＳ ゴシック",sans-serif;}
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:2px 0;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	font-size:100%;
+	font-family:"ＭＳ ゴシック",sans-serif;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	font-family:sans-serif;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	font-family:sans-serif;}
+/* Page Definitions */
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:42.55pt 42.55pt 42.55pt 42.55pt;
+	layout-grid:14.0pt;}
+div.Section1
+	{page:Section1;}
