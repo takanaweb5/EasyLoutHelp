@@ -1,0 +1,21 @@
+﻿<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<title>＠＠＠</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+
+置換
+file:///C:\Users\takah\OneDrive\ドキュメント\フリーソフト\フリーソフト\かんたんレイアウトVer5\HELP\
+
+
+
+<img>  タグのwidth height 削除 または width=100%
+
+target="_blank" の挿入
+例：
+<a href="https://qiita.com/takahasinaoki/" target="_blank">
+
+ 
