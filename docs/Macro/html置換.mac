@@ -1,0 +1,48 @@
+﻿//文字コードをUTF8に変更
+ChgCharSet(4,1);	// 文字コードセット指定...
+
+//タグで始まらない行の先頭に空白挿入
+ReplaceAll('^([^<\\r\\n])', ' \1', 28);
+
+//改行削除
+ReplaceAll('\\r\\n', '', 28);
+
+//先頭情報削除
+ReplaceAll('^<html>.*?(?=<div)', '', 28);
+
+//lang=EN-US削除
+ReplaceAll(' lang=EN-US', '', 24);
+
+//class=MsoNormal削除
+ReplaceAll(' class=MsoNormal', '', 24);
+
+//<image>タグ整備
+ReplaceAll('<img.*?src=', '<img src=', 28);	// すべて置換
+ReplaceAll('src="file:.*?(?=img\\\\)', 'src="', 28);	// すべて置換
+
+//<span>タグ削除
+ReplaceAll('<span>(((?!<span>|</span>).)*?)</span>', '\\1', 1052);	// すべて置換
+ReplaceAll('<span>(((?!<span>|</span>).)*?)</span>', '\\1', 1052);	// すべて置換
+ReplaceAll('<span>(((?!<span>|</span>).)*?)</span>', '\\1', 1052);	// すべて置換
+ReplaceAll('<span>(((?!<span>|</span>).)*?)</span>', '\\1', 1052);	// すべて置換
+ReplaceAll('<span>(((?!<span>|</span>).)*?)</span>', '\\1', 1052);	// すべて置換
+ReplaceAll('<span>(((?!<span>|</span>).)*?)</span>', '\\1', 1052);	// すべて置換
+
+//水平線整備
+ReplaceAll('<div[^<]*?><hr.*?></div>', '<hr>', 1052);	// すべて置換
+
+//改行変換
+ReplaceAll('<p[^<]*?>&nbsp;</p>', '<br>', 1052);	// すべて置換
+
+//ダブルコーテーション置換
+ReplaceAll('&quot;', '"', 1080);	// すべて置換
+
+//</span><span>を削除（フォーマットが同じ時のみ）
+ReplaceAll('(<span[^<]*?>)(.*?)(</span>\1)(.*?)(</span>)', '\\1\\2\\4\\5', 1084);	// すべて置換
+ReplaceAll('(<span[^<]*?>)(.*?)(</span>\1)(.*?)(</span>)', '\\1\\2\\4\\5', 1084);	// すべて置換
+ReplaceAll('(<span[^<]*?>)(.*?)(</span>\1)(.*?)(</span>)', '\\1\\2\\4\\5', 1084);	// すべて置換
+ReplaceAll('(<span[^<]*?>)(.*?)(</span>\1)(.*?)(</span>)', '\\1\\2\\4\\5', 1084);	// すべて置換
+ReplaceAll('(<span[^<]*?>)(.*?)(</span>\1)(.*?)(</span>)', '\\1\\2\\4\\5', 1084);	// すべて置換
+
+
+ReDraw(0);	// 再描画
