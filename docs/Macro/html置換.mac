@@ -18,7 +18,8 @@ ReplaceAll(' class=MsoNormal', '', 24);
 
 //<image>タグ整備
 ReplaceAll('<img.*?src=', '<img src=', 28);	// すべて置換
-ReplaceAll('src="file:.*?(?=img\\\\)', 'src="', 28);	// すべて置換
+ReplaceAll('src="(?<!http).*?(?=img(\\\\|/))', 'src="', 28);	// すべて置換
+ReplaceAll(' alt=".+?">', '>', 28);	// すべて置換
 
 //<span>タグ削除
 ReplaceAll('<span>(((?!<span>|</span>).)*?)</span>', '\\1', 1052);	// すべて置換
