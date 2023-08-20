@@ -10,7 +10,7 @@ function closeMenu(event) {
  var menu = document.getElementById("menu");
  var menuButton = document.getElementById("menu-button");
  if (menuButton.innerHTML != "　") { return; }
- menu.style.left = "-220px";
+ menu.style.left = "-200px";
  menuButton.innerHTML = "☰";
 }
 

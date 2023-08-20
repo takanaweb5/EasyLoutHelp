@@ -47,8 +47,6 @@ a:visited, span.MsoHyperlinkFollowed
 
 .WordSection1 {
 	position: relative;
-	position: absolute;
-	transition: 0.3s;
 	top: 0;
 	left: 24px;
 	transition: 0.3s;
