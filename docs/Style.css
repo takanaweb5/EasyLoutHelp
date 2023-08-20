@@ -1,4 +1,4 @@
-﻿/* Style Definitions */
+﻿﻿/* Style Definitions */
 body
 	{background-color:#FEF2DB;}
 p
@@ -9,13 +9,13 @@ p.MsoNormal, li.MsoNormal, div.MsoNormal
 	font-family:"ＭＳ ゴシック",sans-serif;}
 h1
 	{margin:10px 5px;
-	font-size:120%;
-	font-family:"ＭＳ ゴシック",sans-serif;
+	font-size: 120%;
+	font-family: "ＭＳ ゴシック", sans-serif;
 	font-weight:bold;}
 h2
 	{margin:10px 5px;
-	font-size:180%;
-	font-family:"ＭＳ ゴシック",sans-serif;
+	font-size: 180%;
+	font-family: "ＭＳ ゴシック", sans-serif;
 	font-weight:bold;}
 a:link, span.MsoHyperlink
 	{color:blue;
@@ -24,3 +24,50 @@ a:visited, span.MsoHyperlinkFollowed
 	{color:purple;
 	text-decoration:underline;}
 
+
+/* スタイル調整 */
+#menu {
+	height: 100%;
+	width: 200px;
+	position: fixed;
+	z-index: 100;
+	top: 0;
+	left: -200px;
+	background-color: #fdedce;
+	overflow-x: hidden;
+	transition: 0.3s;
+	opacity: 98%;
+}
+
+#menuClose-button {
+	cursor: pointer;
+	text-align: right;
+	font-size: x-large;
+}
+
+.WordSection1 {
+	margin-left: 20px;
+	position: relative;
+	position: absolute;
+	transition: 0.3s;
+	top: 0;
+	left: 0;
+	transition: 0.3s;
+	bottom: 0;
+	right: 0;
+	width: 100vw;	/* 画面の幅に合わせる */
+	height: 100vh;	/* 画面の高さに合わせる */
+}
+
+#menu-button {
+	margin-left: -16px;
+	cursor: pointer;
+	font-size: x-large;
+}
+
+#content {
+	margin-left: 24px;
+	margin-top: -16px ;
+	position: relative;
+	transition: 0.3s;
+}
