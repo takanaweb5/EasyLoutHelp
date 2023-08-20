@@ -46,12 +46,11 @@ a:visited, span.MsoHyperlinkFollowed
 }
 
 .WordSection1 {
-	margin-left: 20px;
 	position: relative;
 	position: absolute;
 	transition: 0.3s;
 	top: 0;
-	left: 0;
+	left: 24px;
 	transition: 0.3s;
 	bottom: 0;
 	right: 0;
@@ -60,7 +59,9 @@ a:visited, span.MsoHyperlinkFollowed
 }
 
 #menu-button {
-	margin-left: -16px;
+	position: fixed;
+	top: 0;
+	left: 0;
 	cursor: pointer;
 	font-size: x-large;
 }
